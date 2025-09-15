@@ -4,6 +4,7 @@ using namespace std;
 
 void FillRand(int arr[], const int n);
 void Print(int arr[], const int n);
+int* push_back(int arr[], int value, int& n);
 
 void main()
 {
@@ -15,14 +16,7 @@ void main()
 	Print(arr, n);
 	int value;
 	cout << "Введите элемент: "; cin >> value;
-	int* buffer = new int[n+1];
-	for (int i = 0; i < n ; i++)
-	{
-		buffer[i] = arr[i];
-	}
-	delete arr;
-	arr = buffer;
-	arr[n++] = value;
+	arr = push_back(arr, value, n);
 	Print(arr, n);
 	delete arr;
 }
@@ -41,4 +35,17 @@ void Print(int arr[], const int n)
 		cout << *(arr + i) << tab;
 	}
 	cout << endl;
+}
+
+int* push_back (int arr[], int value, int& n)
+{
+	int* buffer = new int[n + 1];
+	for (int i = 0; i < n; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	delete arr;
+	arr = buffer;
+	arr[n++] = value;
+	return arr;
 }
