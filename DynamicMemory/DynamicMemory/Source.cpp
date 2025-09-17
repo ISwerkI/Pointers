@@ -9,6 +9,7 @@ int* push_front(int arr[], int value, int& n);
 int* insert(int arr[], int value, int& n, int index);
 int* pop_back(int arr[], int& n);
 int* pop_front(int arr[], int& n);
+int* erase(int arr[], int& n,int index);
 
 void main()
 {
@@ -21,7 +22,7 @@ void main()
 	Print(arr, n);
 	int value;
 	cout << "Введите элемент: "; cin >> value;
-	cout << "Какие действия вы хотите провернуть с массивом?" << endl << "0. push_back" << endl << "1. push_front" << endl << "2. insert" << endl<<"3. pop_front"<<endl<<"4. pop_back"<<endl;
+	cout << "Какие действия вы хотите провернуть с массивом?" << endl << "0. push_back" << endl << "1. push_front" << endl << "2. insert" << endl<<"3. pop_front"<<endl<<"4. pop_back"<<endl<<"5. erase"<<endl;
 	cin >> user_num;
 	if (user_num == 0)
 	{
@@ -44,6 +45,12 @@ void main()
 	else if (user_num == 4)
 	{
 		arr = pop_back(arr, n);
+	}
+	else if (user_num == 5)
+	{
+		int index;
+		cout << "Введите индекс по которому хотите расположить значение: "; cin >> index;
+		arr=erase(arr,n,index);
 	}
 	else
 	{
@@ -133,6 +140,23 @@ int* pop_back(int arr[], int& n)
 	for (int i = 0; i < n-1; i++)
 	{
 		buffer[i] = arr[i];
+	}
+	delete arr;
+	arr = buffer;
+	n--;
+	return arr;
+}
+
+int* erase(int arr[], int& n, int index)
+{
+	int* buffer = new int[n - 1];
+	for (int i = 0; i < index; i++)
+	{
+		buffer[i] = arr[i];
+	}
+	for (int i = index; i < n-1; i++)
+	{
+		buffer[i] = arr[i + 1];
 	}
 	delete arr;
 	arr = buffer;
