@@ -10,10 +10,18 @@ int* insert(int arr[], int value, int& n, int index);
 int* pop_back(int arr[], int& n);
 int* pop_front(int arr[], int& n);
 int* erase(int arr[], int& n,int index);
+void Allocate(int rows, int cols);
+void Clear(int** arr, int rows);
+int** push_row_back(int** arr, int rows,int cols);
+
+//#define DYNAMIC_MEMORY1
+#define DYNAMIC_MEMORY2
+
 
 void main()
 {
 	setlocale(LC_ALL, "");
+#ifdef DYNAMIC_MEMORY1
 	int n = 5;
 	int user_num;
 	cout << "¬ведите размер массива: "; cin >> n;
@@ -58,7 +66,43 @@ void main()
 	}
 	Print(arr, n);
 	delete arr;
+#endif
+#ifdef DYNAMIC_MEMORY2
+	int rows;
+	int cols;
+	cin >> cols;
+	cin >> rows;
+	Allocate(rows, cols);
 
+
+#endif
+}
+
+void Allocate(int rows, int cols)
+{
+	int** arr = new int* [rows];
+	for (int i = 0; i < rows; i++)
+	{
+		arr[i] = new int[cols];
+	}
+}
+
+void Clear(int** arr, int rows)
+{
+	for (int i = 0; i < rows; i++)
+	{
+		delete[] arr[i];
+	}
+	delete[] arr;
+
+}
+
+int** push_row_back(int** arr, int rows, int cols)
+{
+	++rows;
+	int** arr = new int* [rows];
+	arr[rows] = new int[cols];
+	return arr;
 }
 
 void FillRand(int arr[], const int n)
@@ -163,3 +207,8 @@ int* erase(int arr[], int& n, int index)
 	n--;
 	return arr;
 }
+
+
+
+
+
