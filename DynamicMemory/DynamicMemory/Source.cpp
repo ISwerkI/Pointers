@@ -16,7 +16,7 @@ int* pop_front(int arr[], int& n);
 int* erase(int arr[], int& n, int index);
 
 
-void Allocate(int rows, int cols);
+int** Allocate(int rows, int cols);
 void Clear(int** arr, int rows);
 int** push_row_back(int** arr, int& rows, int const cols);
 void FillRand(int** arr, const int ROWS, const int COLS);
@@ -88,27 +88,25 @@ void main()
 #ifdef DYNAMIC_MEMORY2
 	int cols = 4;
 	int rows = 5;
-	int** arr = new int* [rows];
-	for (int i = 0; i < rows; i++)
-	{
-		arr[i] = new int[cols];
-	}
+	int** arr = Allocate(rows, cols);
 	FillRand(arr, rows, cols);
 	FillRand(arr[0], cols, 100, 1000);
 	Print(arr, rows, cols);
 	erase_col(arr, rows, cols, 1);
 	Print(arr, rows, cols);
+	Clear(arr, rows);
 
 #endif
 }
 
-void Allocate(int rows, int cols)
+int** Allocate(int rows, int cols)
 {
 	int** arr = new int* [rows];
 	for (int i = 0; i < rows; i++)
 	{
 		arr[i] = new int[cols];
 	}
+	return arr;
 }
 
 void Clear(int** arr, int rows)
