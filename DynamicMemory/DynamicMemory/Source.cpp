@@ -29,6 +29,7 @@ void push_col_back(int** arr, const int rows, int& cols);
 void push_col_front(int** arr, const int rows, int& cols);
 void pop_col_back(int** arr, const int rows, int& cols);
 void pop_col_front(int** arr, const int rows, int& cols);
+void insert_col(int** arr, const int rows, int& cols, int index);
 
 
 //#define DYNAMIC_MEMORY1
@@ -95,7 +96,7 @@ void main()
 	FillRand(arr, rows, cols);
 	FillRand(arr[0], cols, 100, 1000);
 	Print(arr, rows, cols);
-	pop_col_front(arr, rows, cols);
+	insert_col(arr, rows, cols, 1);
 	Print(arr, rows, cols);
 
 #endif
@@ -388,5 +389,24 @@ void pop_col_front(int** arr, const int rows, int& cols)
 	}
 }
 
-
+void insert_col(int** arr, const int rows, int& cols, int index)
+{
+	++cols;
+	for (int i = 0; i < rows; i++)
+	{
+		int* buffer = new int[cols];
+		for (int j = 0; j < index; j++)
+		{
+			buffer[j] = arr[i][j];
+		}
+		buffer[index] = 0;
+		for (int j = index+1; j < cols; j++)
+		{
+			buffer[j] = arr[i][j-1];
+		}
+		delete[] arr[i];
+		arr[i] = new int[cols];
+		arr[i] = buffer;
+	}
+}
 
