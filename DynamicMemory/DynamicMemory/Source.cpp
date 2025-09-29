@@ -104,7 +104,7 @@ void main()
 #ifdef DYNAMIC_MEMORY2
 	int cols = 4;
 	int rows = 5;
-	double** arr = Allocate(cols, rows);
+	double** arr = Allocate(rows, cols);
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
 	arr = push_row_back(arr, rows, cols);
@@ -262,7 +262,7 @@ T** push_row_back(T** arr, int& rows, int const cols)
 	rows++;
 	return buffer;
 }
-void FillRand(int** arr, const int ROWS, const int COLS)
+void FillRand(double** arr, const int ROWS, const int COLS)
 {
 	for (int i = 0; i < ROWS; i++)
 	{
