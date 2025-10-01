@@ -94,7 +94,7 @@ void main()
 	DATA_TYPE** arr = Allocate<DATA_TYPE>(rows,cols);
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
-	arr = push_row_back(arr, rows, cols);
+	pop_col_back(arr, rows, cols);
 	Print(arr, rows, cols);
 	Clear(arr, rows);
 
