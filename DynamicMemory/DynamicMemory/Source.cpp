@@ -92,7 +92,7 @@ void main()
 	DATA_TYPE** arr = Allocate<DATA_TYPE>(rows,cols);
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
-	arr = pop_row_back(arr, rows,cols);
+	push_col_back(arr,rows,cols);
 	Print(arr, rows, cols);
 	Clear(arr, rows);
 #endif
@@ -227,16 +227,12 @@ template <typename T>T** erase_row(T** arr, int& rows, const int cols, int index
 }
 template <typename T>void push_col_back(T** arr, const int rows, int& cols)
 {
-	++cols;
 	for (int i = 0; i < rows; i++)
 	{
-		T* buffer = new T[cols];
-		for (int j = 0; j < cols - 1; j++) buffer[j] = arr[i][j];
-		delete[] arr[i];
-		arr[i] = new T[cols];
-		buffer[cols - 1] = 0;
-		arr[i] = buffer;
+		arr[i] = push_back(arr[i], T(), cols);
+		cols--;
 	}
+	++cols;
 }
 template <typename T>void push_col_front(T** arr, const int rows, int& cols)
 {
