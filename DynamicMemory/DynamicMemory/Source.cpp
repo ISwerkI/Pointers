@@ -92,12 +92,12 @@ void main()
 	DATA_TYPE** arr = Allocate<DATA_TYPE>(rows,cols);
 	FillRand(arr, rows, cols);
 	Print(arr, rows, cols);
-	pop_col_back(arr, rows, cols);
+	arr = pop_row_back(arr, rows,cols);
 	Print(arr, rows, cols);
 	Clear(arr, rows);
 #endif
 }
-template <typename T>T** Allocate(const int rows,const int cols)
+template<typename T>T** Allocate(const int rows,const int cols)
 {
 	T** arr = new T * [rows];
 	for (int i = 0; i < rows; i++) arr[i] = new T[cols];
@@ -178,12 +178,7 @@ template<typename T>T* erase(T arr[], int& n, int index)
 }
 template <typename T>T** push_row_back(T** arr, int& rows, int const cols)
 {
-	T** buffer = new T * [rows + 1];
-	for (int i = 0; i < rows; i++) buffer[i] = arr[i];
-	delete[] arr;
-	buffer[rows] = new T[cols]{};
-	rows++;
-	return buffer;
+	return  push_back(arr, new T[cols]{}, rows);
 }
 void FillRand(int** arr, const int ROWS, const int COLS)
 {
@@ -199,29 +194,16 @@ void FillRand(char** arr, const int ROWS, const int COLS)
 }
 template <typename T>T** push_row_front(T** arr, int ROWS, const int COLS)
 {
-	T** buffer = new T * [ROWS + 1];
-	for (int i = 0; i < ROWS; i++) buffer[i + 1] = arr[i];
-	delete arr;
-	buffer[0] = new T[COLS]{};
-	ROWS++;
-	return buffer;
+	return push_front(arr, new T[COLS]{}, ROWS);
 }
 template <typename T>T** pop_row_back(T** arr, int& rows, const int cols)
 {
-	T** buffer = new T * [--rows];
-	for (int i = 0; i < rows; i++) buffer[i] = arr[i];
-	delete[] arr[rows];
-	delete arr;
-	return buffer;
+	delete[] arr[rows - 1];
+	return pop_back(arr, rows);
 }
 template <typename T>T** insert_row(T** arr, int& rows, const int cols, int index)
 {
-	T** buffer = new T * [++rows];
-	for (int i = 0; i < index; i++) buffer[i] = arr[i];
-	buffer[index] = new T[cols]{};
-	for (int i = index + 1; i < rows; i++) buffer[i] = arr[i];
-	delete arr;
-	return buffer;
+	return insert(arr, new T[cols]{}, rows, index);
 }
 template <typename T>T** pop_row_front(T** arr, int& rows, const int cols)
 {
